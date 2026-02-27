@@ -1,0 +1,36 @@
+# koyeb.yaml — Deploy to Koyeb
+# https://www.koyeb.com/docs/apps/app-yaml
+
+name: movie-auto-post-bot
+
+services:
+  - name: bot
+    type: worker          # background process, no HTTP port needed
+    git:
+      repository: github.com/YOUR_USER/movie-auto-post-bot
+      branch: main
+    build:
+      dockerfile: Dockerfile
+    env:
+      - key: API_ID
+        secret: api_id
+      - key: API_HASH
+        secret: api_hash
+      - key: BOT_TOKEN
+        secret: bot_token
+      - key: SOURCE_CHANNEL
+        secret: source_channel
+      - key: DEST_CHANNEL
+        secret: dest_channel
+      - key: FILE_STORE_BOT
+        secret: file_store_bot
+      - key: MONGO_URI
+        secret: mongo_uri
+      - key: TMDB_API_KEY
+        secret: tmdb_api_key
+      - key: GROUP_WAIT_SECONDS
+        value: "30"
+      - key: LOG_LEVEL
+        value: "INFO"
+    instance_types:
+      - nano
